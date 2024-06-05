@@ -10,6 +10,7 @@ import carmenromano.entities.Partecipazioni;
 import carmenromano.entities.Persona;
 import carmenromano.enums.EventType;
 import carmenromano.enums.GenderType;
+import carmenromano.enums.StateType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -17,37 +18,38 @@ import jakarta.persistence.Persistence;
 import java.time.LocalDate;
 
 public class Application {
-    //questo metodo ci consente di creare oggetti entity manager per poter interagire con il db
     private static final EntityManagerFactory entity_final = Persistence.createEntityManagerFactory("gestioneeventi");
 
     public static void main(String[] args) {
-        // Creazione dell'EntityManagerFactory
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestioneeventi");
-        // Creazione dell'EntityManager
         EntityManager em = emf.createEntityManager();
-        // Creazione dei DAO
-        PersonaDAO personaDAO = new PersonaDAO(em);
+
         LocationDAO locationDAO = new LocationDAO(em);
         EventDao eventDAO = new EventDao(em);
+        PersonaDAO personaDAO = new PersonaDAO(em);
         PartecipazioniDAO partecipazioniDAO = new PartecipazioniDAO(em);
 
-        // Salvataggio di una Persona
-     //   Persona persona = new Persona(GenderType.M, "Mario", "Rossi",
-      //          "mario.rossi@example.com", LocalDate.of(1980, 1, 1), );
-       // personaDAO.save(persona);
-
-        // Salvataggio di una Location
+        ///LOCATION
         Location location = new Location("villa", "Milano");
-      //  locationDAO.save(location);
+        //  locationDAO.save(location);
+         Location locationDB = locationDAO.findById("577228a5-09eb-4346-af70-e9e905baaab5");
 
 
-        // Salvataggio di un Evento associato alla Location
-        Location locationDB = locationDAO.findById("74946ad9-9531-4973-81c2-69ad3b0e1e51");
-       Event evento = new Event("Evento 1", LocalDate.of(2023, 5, 1),
-             "Descrizione dell'evento", EventType.PUBBLICO, 100, locationDB);
+        //EVENTO
+        Event evento = new Event("festa",LocalDate.of(2024, 5, 1),
+                "party a tema",EventType.PRIVATO,50,locationDB);
+          // eventDAO.save(evento);
 
-       Persona persona1 = new Persona(GenderType.F,);
-       eventDAO.save(evento);
+        //PERSONA
+         Persona persona = new Persona(GenderType.F,LocalDate.of(1996, 6, 22),"prova@prova.it","Romano","Carmen");
+         // personaDAO.save(persona);
+
+
+        //PARTECIPAZIONE
+        Persona personaDB = personaDAO.findById("e39baf46-ef0f-4441-852a-59592ce468ce");
+        Event eventDB = eventDAO.findById("d19e1623-253a-4f3f-9954-8636ded6d0cb");
+        Partecipazioni partecipazioni = new Partecipazioni(StateType.CONFERMATO,personaDB,eventDB);
+         // partecipazioniDAO.save(partecipazioni);
 
 
     }

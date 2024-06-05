@@ -1,8 +1,6 @@
 package carmenromano.entities;
-
 import carmenromano.enums.StateType;
 import jakarta.persistence.*;
-
 import java.util.UUID;
 
 @Entity
@@ -12,11 +10,7 @@ public class Partecipazioni {
     @Id
     @GeneratedValue
     private UUID id;
-    @Column(name = "nome")
-    private String nome;
-    @Column(name = "stato")
-    @Enumerated(EnumType.STRING)
-    private StateType stateType;
+
 
         @ManyToOne
         @JoinColumn(name = "persona_id")
@@ -25,12 +19,14 @@ public class Partecipazioni {
         @ManyToOne
         @JoinColumn(name = "event_id")
         private Event event;
+    @Column(name = "stato")
+    @Enumerated(EnumType.STRING)
+    private StateType stateType;
 
 public Partecipazioni(){}
 
-    public Partecipazioni(StateType stateType, String nome, Persona persona, Event event) {
+    public Partecipazioni(StateType stateType, Persona persona, Event event) {
         this.stateType = stateType;
-        this.nome = nome;
         this.persona = persona;
         this.event = event;
     }
@@ -48,13 +44,6 @@ public Partecipazioni(){}
     }
 
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public Persona getPersona() {
         return persona;
@@ -77,7 +66,6 @@ public Partecipazioni(){}
         return "Partecipazioni{" +
                 "id=" + id +
                 ", stateType=" + stateType +
-                ", nome='" + nome + '\'' +
                 ", persona=" + persona +
                 '}';
     }

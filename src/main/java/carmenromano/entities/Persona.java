@@ -30,15 +30,15 @@ public class Persona {
     @Enumerated(EnumType.STRING)
     private GenderType genderType;
 
-    @OneToMany
-    @JoinColumn(name = "lista_partecipazioni", nullable = false)
+    @OneToMany(
+            mappedBy = "persona"
+    )
     private List<Partecipazioni> partecipazioniList;
 
 public Persona (){}
 
-    public Persona(GenderType genderType, List<Partecipazioni> partecipazioniList, LocalDate data_di_nascita, String email, String cognome, String nome) {
+    public Persona(GenderType genderType, LocalDate data_di_nascita, String email, String cognome, String nome) {
         this.genderType = genderType;
-        this.partecipazioniList = partecipazioniList;
         this.data_di_nascita = data_di_nascita;
         this.email = email;
         this.cognome = cognome;

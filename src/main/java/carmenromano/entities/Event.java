@@ -35,10 +35,11 @@ public class Event {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(
+            mappedBy = "event"
+    )
     private List<Partecipazioni> partecipazioniList;
 
-    // Costruttore di default richiesto da JPA
     public Event() {}
 
     public Event(String titolo, LocalDate dataEvento, String descrizione, EventType eventType, Integer numeroMaxPartecipanti, Location location) {
@@ -103,13 +104,8 @@ public class Event {
         this.location = location;
     }
 
-    public List<Partecipazioni> getPartecipazioniList() {
-        return partecipazioniList;
-    }
 
-    public void setPartecipazioniList(List<Partecipazioni> partecipazioniList) {
-        this.partecipazioniList = partecipazioniList;
-    }
+
 
     @Override
     public String toString() {

@@ -22,7 +22,7 @@ public class PartecipazioniDAO {
             transaction.begin();
             entityManager.persist(partecipazione);
             transaction.commit();
-            System.out.println("La partecipazione per l'evento " + partecipazione.getNome() + " è stata correttamente salvata nel database");
+            System.out.println("La partecipazione " + partecipazione.getId() + " è stata correttamente salvata nel database");
         } catch (PersistenceException e) {
             if (transaction.isActive()) {
                 transaction.rollback();
@@ -43,7 +43,7 @@ public class PartecipazioniDAO {
                 transaction.begin();
                 entityManager.remove(partecipazioneFound);
                 transaction.commit();
-                System.out.println("La partecipazione per l'evento " + partecipazioneFound.getNome() + " è stata eliminata con successo");
+                System.out.println("La partecipazione" + partecipazioneFound.getId() + " è stata eliminata con successo");
             } else {
                 System.err.println("Partecipazione con ID " + partecipazioneId + " non trovata");
             }
